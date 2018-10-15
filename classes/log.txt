@@ -1,0 +1,10 @@
+CREATE TABLE wp_vedoBundles  (
+id mediumint(9) NOT NULL AUTO_INCREMENT,
+CreatedAt datetime  DEFAULT now(),
+Title TEXT DEFAULT '' NOT NULL,
+Url TEXT DEFAULT '' NOT NULL,
+Description TEXT DEFAULT '' NOT NULL,
+Category Text DEFAULT '',
+DealerName Text DEFAULT '',
+PRIMARY KEY  (id)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
