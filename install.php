@@ -2,7 +2,8 @@
 class MyPlugin {
 
      function install() {
-        file_put_contents(__DIR__.'/log.txt', 'plugin activated');
+      //  file_put_contents(__DIR__.'/log.txt', datetime().'plugin activated');
+      
     }
 
 
