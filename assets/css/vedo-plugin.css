@@ -1,0 +1,9 @@
+.videoList-admin-Wrapper h3::before {
+    border-right: 4px solid #12bd21;
+    content: ' ';
+    margin-right: 2px;
+}
+
+.videoList-admin-Wrapper h3 {
+    font-size: 18px;
+}

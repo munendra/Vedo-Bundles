@@ -7,8 +7,6 @@
         $tblname = 'vedoBundles';
         $wp_track_table = $table_prefix . "$tblname ";
 
-#Check to see if the table exists already, if not, then create it
-
         if ($wpdb->get_var("show tables like '$wp_track_table'") != $wp_track_table) {
 
             $charset_collate = $wpdb->get_charset_collate();
@@ -20,6 +18,8 @@ Url TEXT DEFAULT '' NOT NULL,
 Description TEXT DEFAULT '' NOT NULL,
 Category Text DEFAULT '',
 DealerName Text DEFAULT '',
+PostId int,
+IsActive bit Not NULL,
 PRIMARY KEY  (id)
 ) $charset_collate;";
             file_put_contents(dirname(__file__) . '/log.txt', $sql);
