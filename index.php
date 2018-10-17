@@ -30,6 +30,11 @@ class vedoBundles
         add_action('admin_menu', array($this, 'addAdminMenu'));
         //add_action( 'wp_ajax_store_admin_data', array( $this, 'storeAdminData' ) );
         add_action('admin_enqueue_scripts', array($this, 'addAdminScripts'));
+        add_action('wp_ajax_vedoBundles_getall', array($this, 'vedoBundles_GetAll'));
+        //vedoBundles_delete
+        add_action('wp_ajax_vedoBundles_delete', array($this, 'vedoBundles_delete'));
+        //vedoBundles_Add
+        add_action('wp_ajax_vedoBundles_add', array($this, 'vedoBundles_add'));
     }
 
     public function addAdminMenu()
@@ -52,6 +57,33 @@ class vedoBundles
         wp_enqueue_style('jsgrid.css', plugins_url('/assets/css/jsgrid.css', __FILE__));
         wp_enqueue_style('theme.css', plugins_url('/assets/css/theme.css', __FILE__));
         wp_enqueue_style('vedo-plugin.css', plugins_url('/assets/css/vedo-plugin.css', __FILE__));
+    }
+
+    public function vedoBundles_GetAll()
+    {
+        global $wpdb;
+        $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}vedoBundles", OBJECT);
+        echo json_encode($results);
+        die();
+    }
+
+    public function vedoBundles_Delete()
+    {
+        global $wpdb;
+        $results = $wpdb->query("delete from {$wpdb->prefix}vedoBundles where id=" . $_GET['id']);
+        echo json_encode($results);
+        die();
+    }
+    public function vedoBundles_Add()
+    {
+        global $wpdb;
+        print_r($_POST);
+        $results = $wpdb->insert("{$wpdb->prefix}vedoBundles",
+            array(
+                'Url' => $_POST['data']['Url'],
+            ));
+        echo json_encode($_POST);
+        die();
     }
 }
 new vedoBundles();
