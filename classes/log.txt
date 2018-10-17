@@ -5,8 +5,10 @@ Title TEXT DEFAULT '' NOT NULL,
 Url TEXT DEFAULT '' NOT NULL,
 Description TEXT DEFAULT '' NOT NULL,
 Category Text DEFAULT '',
-DealerName Text DEFAULT '',
+CategoryId int,
+vendorName Text DEFAULT '',
+vendorId int,
 PostId int,
-IsActive bit Not NULL,
+Isactive bit Not NULL,
 PRIMARY KEY  (id)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

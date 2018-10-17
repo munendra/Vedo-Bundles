@@ -35,6 +35,9 @@ class vedoBundles
         add_action('wp_ajax_vedoBundles_delete', array($this, 'vedoBundles_delete'));
         //vedoBundles_Add
         add_action('wp_ajax_vedoBundles_add', array($this, 'vedoBundles_add'));
+        //vedoBundles_update
+        add_action('wp_ajax_vedoBundles_update', array($this, 'vedoBundles_update'));
+
     }
 
     public function addAdminMenu()
@@ -62,7 +65,7 @@ class vedoBundles
     public function vedoBundles_GetAll()
     {
         global $wpdb;
-        $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}vedoBundles", OBJECT);
+        $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}vedoBundles where Isactive=1", OBJECT);
         echo json_encode($results);
         die();
     }
@@ -77,12 +80,33 @@ class vedoBundles
     public function vedoBundles_Add()
     {
         global $wpdb;
-        print_r($_POST);
         $results = $wpdb->insert("{$wpdb->prefix}vedoBundles",
             array(
                 'Url' => $_POST['data']['Url'],
+                'CategoryId' => $_POST['data']['ProductCategory'],
+                'vendorId' => $_POST['data']['vendor'],
+                'Isactive' => true,
             ));
-        echo json_encode($_POST);
+        echo $results;
+        die();
+    }
+    public function vedoBundles_update()
+    {
+        global $wpdb;
+        $isActive = 0;
+        print_r($_POST['data']);
+        if ($_POST['data']['Isactive']) {
+            $isActive = 1;
+        }
+        $results = $wpdb->update("{$wpdb->prefix}vedoBundles",
+            array(
+                'Url' => $_POST['data']['Url'],
+                'CategoryId' => $_POST['data']['ProductCategory'],
+                'vendorId' => $_POST['data']['vendor'],
+                'Isactive' => $_POST['data']['Isactive'],
+            )
+            , array('id' => $_POST['data']['id']));
+        echo $results;
         die();
     }
 }

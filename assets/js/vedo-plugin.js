@@ -27,6 +27,10 @@ function initGrid(data) {
         sorting: true,
         paging: true,
         inserting: true,
+        loadIndication: true,
+        loadIndicationDelay: 500,
+        loadMessage: "Please, wait...",
+        loadShading: true,
         autoload: false,
         confirmDeleting: true,
         deleteConfirm: "Are you sure?",
@@ -35,7 +39,6 @@ function initGrid(data) {
             jQuery.get("admin-ajax.php?action=vedoBundles_delete&id=" + deletedRow.item.id, function () {
                 loadGrid();
             });
-
         },
         onItemInserted: function (data) {
             var postData = {
@@ -43,9 +46,18 @@ function initGrid(data) {
                 data: data.item
             };
             jQuery.post("admin-ajax.php", postData, function () {
-                //  loadGrid();
+                loadGrid();
             });
-            console.log(postData);
+
+        },
+        onItemUpdated: function (data) {
+            var postData = {
+                action: 'vedoBundles_update',
+                data: data.item
+            };
+            jQuery.post("admin-ajax.php", postData, function () {
+                loadGrid();
+            });
         },
         fields: [{
                 name: "Url",
@@ -77,8 +89,10 @@ function initGrid(data) {
                         Name: "Seat covers",
                         Id: 2
                     }
-                ]
-
+                ],
+                itemTemplate: function (value, item) {
+                    return item.CategoryId;
+                }
             },
             {
                 name: "vendor",
@@ -103,10 +117,14 @@ function initGrid(data) {
                         Name: "vendor 3",
                         Id: 3
                     }
-                ]
+                ],
+                itemTemplate: function (value, item) {
+                    return item.vendorId;
+                }
             },
             {
-                name: "Is active",
+                name: "Isactive",
+                Title: "Is active",
                 type: "checkbox",
                 title: "Is active",
                 sorting: false,

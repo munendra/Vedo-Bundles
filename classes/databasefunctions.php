@@ -17,10 +17,11 @@ Title TEXT DEFAULT '' NOT NULL,
 Url TEXT DEFAULT '' NOT NULL,
 Description TEXT DEFAULT '' NOT NULL,
 Category Text DEFAULT '',
+CategoryId int,
 vendorName Text DEFAULT '',
-vendorId Text,
+vendorId int,
 PostId int,
-IsActive bit Not NULL,
+Isactive bit Not NULL,
 PRIMARY KEY  (id)
 ) $charset_collate;";
             file_put_contents(dirname(__file__) . '/log.txt', $sql);
