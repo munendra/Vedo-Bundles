@@ -22,6 +22,7 @@ vendorName Text DEFAULT '',
 vendorId int,
 PostId int,
 Isactive bit Not NULL,
+UserId int,
 PRIMARY KEY  (id)
 ) $charset_collate;";
             file_put_contents(dirname(__file__) . '/log.txt', $sql);

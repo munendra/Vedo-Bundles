@@ -65,8 +65,26 @@ class vedoBundles
     public function vedoBundles_GetAll()
     {
         global $wpdb;
+        
+        $orderby = 'name';
+        $order = 'asc';
+        $hide_empty = false ;
+        $cat_args = array(
+            'orderby'    => $orderby,
+            'order'      => $order,
+            'hide_empty' => $hide_empty,
+        );
+         
+        $product_categories = get_terms( 'product_cat', $cat_args );
+       
+      
+
         $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}vedoBundles where Isactive=1", OBJECT);
-        echo json_encode($results);
+        $object = (object) [
+            'videoList' => $results,
+            'productCategories' => $product_categories,
+          ];
+        echo json_encode($object);
         die();
     }
 
@@ -86,6 +104,7 @@ class vedoBundles
                 'CategoryId' => $_POST['data']['ProductCategory'],
                 'vendorId' => $_POST['data']['vendor'],
                 'Isactive' => true,
+                'UserId'=> get_current_user_id()
             ));
         echo $results;
         die();
