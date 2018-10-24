@@ -6,6 +6,19 @@ jQuery(document).ready(function () {
         initGrid(response);
     });
 
+
+    jQuery('#btnFilterVideo').click(function () {
+
+        _data = {
+            action: 'vedoBundles_filter',
+            categoryId: jQuery('#categoryId').val(),
+            vandorId: jQuery('#vandorId').val()
+        };
+        jQuery.get("../wp-admin/admin-ajax.php", _data, function (response) {
+            console.log(response);
+        });
+    });
+
 });
 
 function loadGrid() {
@@ -66,7 +79,6 @@ function initGrid(data) {
             width: 100,
             validate: "required",
             itemTemplate: function (value, item) {
-
                 return '<a title="' + item.Title + '" target="_blank" href="' + value + '">' + value + '</a>';
             }
         },
@@ -84,7 +96,11 @@ function initGrid(data) {
             items: jsonObject.productCategories,
             itemTemplate: function (value, item) {
                 var res = jsonObject.productCategories.filter(cat => cat.term_id == item.CategoryId);
-                return res[0].name;
+                if (res.length > 0) {
+                    return res[0].name;
+                }
+                else
+                    return '';
             }
         },
         {
@@ -94,25 +110,18 @@ function initGrid(data) {
             align: "center",
             width: 200,
             validate: "required",
-            valueField: "Id",
-            textField: "Name",
+            valueField: "id",
+            textField: "display_name",
             selectedIndex: -1,
             autosearch: true,
-            items: [{
-                Name: "vendor 1",
-                Id: 1
-            },
-            {
-                Name: "vendor 2",
-                Id: 2
-            },
-            {
-                Name: "vendor 3",
-                Id: 3
-            }
-            ],
+            items: jsonObject.vendors,
             itemTemplate: function (value, item) {
-                return item.vendorId;
+                var res = jsonObject.vendors.filter(vendor => vendor.id == item.vendorId);
+                if (res.length > 0) {
+                    return res[0].display_name;
+                }
+                else
+                    return '';
             }
         },
         {
@@ -128,10 +137,4 @@ function initGrid(data) {
         }
         ]
     });
-}
-function selectWhere(data, propertyName) {
-    for (var i = 0; i < data.length; i++) {
-        if (data[i][propertyName] !== null) return data[i][propertyName];
-    }
-    return null;
 }

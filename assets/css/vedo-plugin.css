@@ -7,3 +7,23 @@
 .videoList-admin-Wrapper h3 {
     font-size: 18px;
 }
+
+.vedo-filter-wrapper{
+    border:1px solid #000;
+padding: 20px;
+width: 100%;
+display: flex;
+}
+.vedo-filter-wrapper .form-control-wrapper{
+    flex: 1;
+    padding: 5px;
+}
+.vedo-filter-wrapper .form-control-wrapper label{
+    display: block;
+}
+
+.vedo-filter-wrapper .form-control-wrapper select{
+  width: 100%;
+  line-height: 32px;
+  font-size: 1.2em;
+}
