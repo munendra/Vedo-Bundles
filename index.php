@@ -94,7 +94,9 @@ class vedoBundles
 
     public function vedoBundles_filter(){
         global $wpdb;
-    $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}vedoBundles where Isactive=1 and CategoryId={$_GET['categoryId']} and vendorId={$_GET['vandorId']}", OBJECT);
+    $sql="SELECT * FROM {$wpdb->prefix}vedoBundles where Isactive=1 and CategoryId={$_GET['categoryId']} and vendorId={$_GET['vandorId']}";
+   
+    $results = $wpdb->get_results($sql, OBJECT);
     echo json_encode($results);   
     die();
     }
@@ -143,7 +145,7 @@ class vedoBundles
 new vedoBundles();
 
 function vedoFilter(){
-    wp_enqueue_script('page-vedo-plugin.js', plugins_url('/assets/js/vedo-plugin.js', __FILE__));
+    wp_enqueue_script('page-vedo-plugin.js', plugins_url('/assets/js/main.js', __FILE__));
     wp_enqueue_style('page-vedo-plugin.css', plugins_url('/assets/css/vedo-plugin.css', __FILE__));
     global $wpdb;
         
@@ -161,29 +163,73 @@ function vedoFilter(){
       $user_fields = array( 'id', 'display_name' );
       $user_query = new WP_User_Query( array( 'role' => 'dc_vendor','orderby' => 'display_name','fields'=>$user_fields ) );
       $users = $user_query->get_results();
+	
     ?>
-    <form >
-    <div class="vedo-filter-wrapper">
-        <div class="form-control-wrapper">
-            <label>Sort by category</label>
-            <select id="categoryId">
-                <?php foreach($product_categories as $ele) { ?>
-                <option value='<?php echo $ele->term_id ?>'><?php echo $ele->name ?></option>
-                <?php } ?>
-            </select>
-        </div>
-        <div class="form-control-wrapper">
-            <label>Sort by Vendor</label>
-            <select id="vandorId">
-            <?php foreach($users as $user) { ?>
-                <option value='<?php echo $user->id ?>'><?php echo $user->display_name ?></option>
-                <?php } ?>
-            </select>
-        </div>
-        <div class="form-control-wrapper" style="    padding-top: 20px;text-align:right;">            
-            <button id="btnFilterVideo" type="button">Filter</button>
-        </div>
+    <form>
+    <div class="woof vedo-filter-wrapper">
+		<div class="woof_redraw_zone">
+			<div class="form-control-wrapper">
+				<label>Sort by category</label>
+				<select id="categoryId">
+					<?php foreach($product_categories as $ele) { ?>
+					<option value='<?php echo $ele->term_id ?>'><?php echo $ele->name ?></option>
+					<?php } ?>
+				</select>
+			</div>
+			<div class="form-control-wrapper">
+				<label>Sort by Vendor</label>
+				<select id="vandorId">
+				<?php foreach($users as $user) { ?>
+					<option value='<?php echo $user->id ?>'><?php echo $user->display_name ?></option>
+					<?php } ?>
+				</select>
+			</div>
+			<div class="form-control-wrapper button-align">            
+				<button id="btnFilterVideo" type="button">Filter</button>
+			</div>
+		</div>
     </div>
+	
+	<div class="videos-list" id="videos-list">
+		
+        <div class="videos-container">
+			<div class="videos-info">
+				<div class="videos">
+                <iframe src="//www.youtube.com/watch?v=HagVnWAeGcM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+				</div>
+				<div class="vendor-info">
+					<p id="vendor-name" class="vendor-name">Vendor Name 1</p>
+					<p class="vendor-profile">
+                    <a href="">View Profile</a>
+                    </p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="videos-container">
+			<div class="videos-info">
+				<div class="videos">
+				
+				</div>
+				<div class="vendor-info">
+					<p class="vendor-name">Vendor Name 2</p>
+					<p class="vendor-profile"><a href="">View Profile 2</a></p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="videos-container">
+			<div class="videos-info">
+				<div class="videos">
+				
+				</div>
+				<div class="vendor-info">
+					<p class="vendor-name">Vendor Name 3</p>
+					<p class="vendor-profile"><a href="">View Profile 3</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
     </form>
     <?php
     }
