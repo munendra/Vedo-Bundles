@@ -43,7 +43,7 @@ function renderVideos(videos, users) {
         html += ' <div class="videos-container">';
         html += '<div class="videos"><iframe frameborder="0" allow="autoplay; encrypted-media" allowfullscreen width="100%" src="' + videos[i].Url + '"></iframe></div>';
         html += '<div class="vendor-info"><div class="vendor-name">' + user[0]['display_name'] + '</div>';
-        html += '<p class="vendor-profile"><a href="">View Profile</a></p></div>';
+        html += '<p class="vendor-profile"><a href="#' + user[0]['id'] + '">View Profile</a></p></div>';
         html += '</div>';
         if (i % 3 == 0) {
             html += "</div>";
