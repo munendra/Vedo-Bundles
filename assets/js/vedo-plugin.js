@@ -6,7 +6,17 @@ jQuery(document).ready(function () {
         initGrid(response);
     });
 });
+jQuery(function () {
+    var loading = jQuery("#loading");
+    jQuery(document).ajaxStart(function () {
+        loading.show();
+    });
 
+    jQuery(document).ajaxStop(function () {
+        loading.hide();
+    });
+
+});
 function loadGrid() {
     data = {
         action: 'vedoBundles_getall'

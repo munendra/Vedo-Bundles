@@ -101,3 +101,14 @@
 		margin-top: 15px;
 	}
 }
+.clearboth{
+	clear: both;
+}
+
+#loading{
+	position: fixed;
+	left: 50%;
+	top:50%;
+	background: rgba(255, 255, 255, .5);
+	padding: 20px;
+}

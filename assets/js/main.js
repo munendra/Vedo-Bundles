@@ -1,9 +1,13 @@
+var _users;
 jQuery(document).ready(function () {
+
     data = {
         action: 'vedoBundles_getall'
     };
     jQuery.get("../wp-admin/admin-ajax.php", data, function (response) {
-        console.log(response);
+        var res = JSON.parse(response);
+        _users = res.vendors;
+        renderVideos(res.videoList, res.vendors);
     });
 
     jQuery('#btnFilterVideo').click(function () {
@@ -13,10 +17,41 @@ jQuery(document).ready(function () {
             vandorId: jQuery('#vandorId').val()
         };
         jQuery.get("../wp-admin/admin-ajax.php", _data, function (response) {
-            console.log(response);
+            renderVideos(JSON.parse(response), _users);
         });
     });
 });
+jQuery(function () {
+    var loading = jQuery("#loading");
+    jQuery(document).ajaxStart(function () {
+        loading.show();
+    });
+
+    jQuery(document).ajaxStop(function () {
+        loading.hide();
+    });
+
+});
+
+function renderVideos(videos, users) {
+    var html = "<div class='video-row'>";
+    for (i in videos) {
+        var user = users.filter(u => u.id == videos[i].vendorId);
+        if (i % 3 == 0) {
+            html += "<div class='clearboth'></div><div class='video-row'><div class='videos-info'>";
+        }
+        html += ' <div class="videos-container">';
+        html += '<div class="videos"><iframe frameborder="0" allow="autoplay; encrypted-media" allowfullscreen width="100%" src="' + videos[i].Url + '"></iframe></div>';
+        html += '<div class="vendor-info"><div class="vendor-name">' + user[0]['display_name'] + '</div>';
+        html += '<p class="vendor-profile"><a href="">View Profile</a></p></div>';
+        html += '</div>';
+        if (i % 3 == 0) {
+            html += "</div>";
+        }
+    }
+    html += "</div></div>";
+    jQuery('#videos-list').html(html);
+}
 
 
 
