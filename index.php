@@ -45,6 +45,7 @@ class vedoBundles
         
         add_shortcode('vedoFilter', array($this, 'vedoFilter'));
 
+        
 
     }
 

@@ -35,18 +35,10 @@
 	text-align:center;
 }
 
-.videos-list {
-	
-}
-
 .videos-list .videos-container {
-	width: 31.5%;   
+	width: 31.8%;   
 	float: left;
-	margin: 0 0 0 10px;
-}
-
-.videos-list .videos-container:nth-child(4n) {
-	margin-left: 0;
+	margin: 0 0 30px 10px;
 }
 
 .videos-list .videos-container .videos-info {
@@ -55,6 +47,18 @@
 
 .videos-list .videos-container .videos {
 	height: 200px;
+	position: relative;
+	padding-bottom: 80%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+
+.videos-list .videos-container .videos iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .videos-list .videos-container .videos-info {
@@ -69,14 +73,20 @@
 
 .videos-list .videos-container .vendor-info {
 	text-align: center;
+	padding: 5px 0 0;
+    font-size: 14px;
 }
 
-.videos-list .videos-container .vendor-info .vendor-name {
-	
+.clearboth{
+	clear: both;
 }
 
-.videos-list .videos-container .vendor-info .vendor-profile {
-	
+#loading{
+	position: fixed;
+	left: 50%;
+	top:50%;
+	background: rgba(255, 255, 255, .5);
+	padding: 20px;
 }
 
 @media (max-width: 500px) {
@@ -98,17 +108,12 @@
 	}
 	
 	.vedo-filter-wrapper .form-control-wrapper label {
-		margin-top: 15px;
+	
 	}
 }
-.clearboth{
-	clear: both;
-}
 
-#loading{
-	position: fixed;
-	left: 50%;
-	top:50%;
-	background: rgba(255, 255, 255, .5);
-	padding: 20px;
+@media (min-width: 1367px) {
+	.videos-list .videos-container {
+		width: 24%;
+	}
 }
